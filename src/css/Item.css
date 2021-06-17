@@ -1,0 +1,13 @@
+span {
+    display: inline-block;
+    margin-right: 8px;
+}
+.reader span {
+    color: black;
+}
+.modify p {
+    color: red;
+}
+.modify .wrapper {
+    display: inline-block;
+}
