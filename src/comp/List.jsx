@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ValContext } from '../App.js' // 임시 스토어 역할
 import Item from './Item.jsx';
 
 import '../css/List.css';
 
 
-const List = ({values, changeModeModify, changeModeDelete, changeModeRead, InputData, modifyData}) => {
-  const valueList = values.map( (val) => 
+const List = () => {
+  const {values, dispatch} = useContext(ValContext);
+
+  const valueList = values.map((val) => 
     <Item 
       key={val.id}
       val={val}
-      changeModeDelete={changeModeDelete}
-      changeModeModify={changeModeModify}
-      changeModeRead={changeModeRead}
-      modifyData={modifyData}
+      dispatch={dispatch}
     /> 
   )
   return (

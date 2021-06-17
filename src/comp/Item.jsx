@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ValContext } from '../App.js' // 임시 스토어 역할
+
 import '../css/Item.css';
 
 
-const Item = ({val, changeModeModify, changeModeDelete, changeModeRead, modifyData}) => {
+const Item = ({val}) => {
+  const {changeModeDelete, dispatch} = useContext(ValContext);
+
+  
   const changeItemMtoR = (e) => {
     const id = e.target.dataset.id;
     if ( val.mode !== 'modify' ) {
-      changeModeModify(id)
+      dispatch({
+        type:'CHANGE_MODE__MODIFY', 
+        payload : id
+      })
       console.log('수정모드로 변경')
     } else if ( val.mode !== 'reader') {
-      changeModeRead(id)
+      dispatch({
+        type:'CHANGE_MODE__READER', 
+        payload : id
+      })
       console.log('읽기모드로 변경')
     }
   }
@@ -20,9 +31,16 @@ const Item = ({val, changeModeModify, changeModeDelete, changeModeRead, modifyDa
     changeModeDelete(id)
   }
 
-  const inputDataChange = (e) => {
-    const id = e.target.dataset.id;
-    modifyData(e, id)
+  const inputDataChange = (e, id) => {
+    dispatch (
+      {
+        type: 'MODIFY_DATA',
+        payload: {
+          id: e.target.dataset.id,
+          title: e.target.value
+        }
+      }
+    )
   }
 
   const classTest = val.mode === 'reader' ? 'reader' : 'modify';
